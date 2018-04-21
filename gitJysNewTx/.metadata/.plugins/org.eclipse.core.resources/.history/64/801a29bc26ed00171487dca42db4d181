@@ -1,0 +1,98 @@
+package eos;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import org.junit.Test;
+
+public class EosRead {
+	
+	@Test
+	public void test3() {
+		
+		//第一个10，第二个比第一个大2，依次递推，算出第8个	
+		int rt = recursion(10, 8);
+		System.out.println(rt);
+		
+	}
+	
+	public int recursion(int start, int index) {
+		if(index > 0) {			
+			recursion(start + 2, index - 1);
+		}
+		return start;
+	}
+	
+	
+	@Test
+	public void test2() {
+		Date date = new Date();
+		long time = date.getTime();
+		System.out.println(time);
+	}
+	
+	@Test
+	public void test1() {
+		File file = new File("C:/Users/PC/Desktop/123123123123123123.txt");
+		List<String> list = new ArrayList<String>();
+        BufferedReader reader = null;
+        try {
+            System.out.println("以行为单位读取文件内容，一次读一整行：");
+            reader = new BufferedReader(new FileReader(file));
+            String tempString = null;
+            int line = 1;
+            // 一次读入一行，直到读入null为文件结束
+            while ((tempString = reader.readLine()) != null && tempString != "") {
+                // 显示行号
+            	if(!list.contains(tempString)) {
+            		list.add(tempString);
+            	}
+                System.out.println("line " + line + ": " + tempString);
+                line++;
+            }
+            System.out.print(list.size());
+            reader.close();
+            
+        writeFile(list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                }
+            }
+        }
+	}
+	
+    public static void writeFile(List<String> list) throws IOException {
+        File fout = new File("C:/Users/PC/Desktop/out.txt");
+        FileOutputStream fos = new FileOutputStream(fout);
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(fos));
+        
+        Iterator<String> iterator = list.iterator();
+        
+        int i = 0;
+        
+        while(iterator.hasNext()) {
+        	
+        	String next = iterator.next();
+        	if(i < 3000) {
+        		bw.write(next);
+        		bw.newLine();
+        		i++;
+        	}
+        }
+        bw.close();
+    }
+}

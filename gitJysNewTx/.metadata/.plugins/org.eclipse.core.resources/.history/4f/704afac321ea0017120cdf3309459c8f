@@ -1,0 +1,9 @@
+package eos;
+
+public class EosRead {
+	
+	@Test
+	public void test1() {
+		
+	}
+}

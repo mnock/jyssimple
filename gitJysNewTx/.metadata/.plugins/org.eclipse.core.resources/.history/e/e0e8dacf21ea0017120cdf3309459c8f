@@ -1,0 +1,11 @@
+package eos;
+
+import org.junit.Test;
+
+public class EosRead {
+	
+	@Test
+	public void test1() {
+		
+	}
+}
